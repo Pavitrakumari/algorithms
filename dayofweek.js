@@ -1,51 +1,64 @@
 /******************************************************************************
-     *  Execution       :   1. default node         cmd> node gambler.js 
+     *  Execution       :   1. default node         cmd> node dayofweek.js 
      *                      
      * 
-     *  Purpose         : Determines whether win% & loss %
+     *  Purpose         : Determine day of week using Gregorian calender
      * 
      *  @description    
      * 
-     *  @file           : gambler.js
-     *  @overview       : gambler module to determine win % & loss %.
-     *  @module         : gambler - This is optional if expeclictly its an npm or local package
+     *  @file           : dayofweek.js
+     *  @overview       : dayofweek module to determine day of week using Gregorian calender.
+     *  @module         : dayofweek - This is optional if expeclictly its an npm or local package
      *  @author         : Pavitrakumari<pavithra.korapati@gmail.com>
      *  @version        : 4.0
      *  @since          : 24-08-2018
      *
+ 
      ******************************************************************************/
-var readLine = require('readline');
+var prompt = require('prompt-sync')();
+
 var utility = require('/home/administrator/js/Algorithms/utility/utility.js');
 
 
-var read = readLine.createInterface(
-    {
-        input: process.stdin,
-        output: process.stdout
+function dayofweek()
+ {
+    var day = prompt("enter the day : ");
+    day=parseInt(day);
+    var month = prompt("enter the month : ");
+    month=parseInt(month);
+    var year = prompt("enter the year : ");
+    year=parseInt(year);
+    if (day >= 1 && day < 32 && month >= 1 && month < 13) {
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+            utility.dayofweek(day,month,year);
+        }
+        else if (day == 29 && month == 2) {
+            console.log("invalid");
+        }
+        else if ((month == 4 || month == 6 || month == 9 || month == 11) && day >= 31) {
+            if (day >= 1 && day < 32 && month >= 1 && month < 13) {
+                if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+                    utility.dayofweek(day,month,year);
+                }
+                else if (day == 29 && month== 2) {
+                    console.log("invalid");
+                }
+                else if ((month== 4 || month== 6 || month == 9 || month == 11) && day >= 31) {
+                    console.log("invalid");
+                }
+                else
+                    utility.dayofweek(day,month,year);
+            }
+            else {
+                console.log("invalid");
+            }
+            console.log("invalid");
+        }
+        else
+            utility.dayofweek(day,month,year);
     }
-);
-function dayofweek() {
-    read.question("enter month : ", function (m) {
-        read.question("enter day: ", function (d) {
-            read.question("enter no.of year : ", function (y) {
-
-
-                if (isNaN(m, d, y)) {
-                    console.log("Plzz enter a numeric value....");
-                }
-                else {
-
-
-
-                    utility.dayofweek(m,d,y);
-                    read.close();
-                }
-            });
-
-        });
-    });
-
-
+    else {
+        console.log("invalid");
+    }
 }
-
 dayofweek();
